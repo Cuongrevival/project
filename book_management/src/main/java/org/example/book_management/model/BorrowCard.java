@@ -6,8 +6,8 @@ public class BorrowCard {
     private String borrowBookId;
     private Book book;
     private Student student;
-    private Date dateOfBorrow;
-    private Date dateOfReturn;
+    private String dateOfBorrow;
+    private String dateOfReturn;
     private boolean status;
 
     public String getBorrowBookId() {
@@ -34,19 +34,19 @@ public class BorrowCard {
         this.student = student;
     }
 
-    public Date getDateOfBorrow() {
+    public String getDateOfBorrow() {
         return dateOfBorrow;
     }
 
-    public void setDateOfBorrow(Date dateOfBorrow) {
+    public void setDateOfBorrow(String dateOfBorrow) {
         this.dateOfBorrow = dateOfBorrow;
     }
 
-    public Date getDateOfReturn() {
+    public String getDateOfReturn() {
         return dateOfReturn;
     }
 
-    public void setDateOfReturn(Date dateOfReturn) {
+    public void setDateOfReturn(String dateOfReturn) {
         this.dateOfReturn = dateOfReturn;
     }
 

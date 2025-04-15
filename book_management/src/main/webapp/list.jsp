@@ -53,15 +53,17 @@
       <td>${borrowCard.book.author}</td>
       <td>${borrowCard.student.name}</td>
       <td>${borrowCard.student.className}</td>
-      <td><fmt:formatDate value="${borrowCard.dateOfBorrow}" pattern="dd-MM-yyyy"/></td>
+      <td>${borrowCard.dateOfBorrow}</td>
+
       <td>
         <c:if test="${not empty borrowCard.dateOfReturn}">
-          <fmt:formatDate value="${borrowCard.dateOfReturn}" pattern="dd-MM-yyyy"/>
+          ${borrowCard.dateOfReturn}
         </c:if>
         <c:if test="${empty borrowCard.dateOfReturn}">
           Chưa trả
         </c:if>
       </td>
+
       <td>
         <a href="book?action=return&borrowBookId=${borrowCard.borrowBookId}">
           <button type="button" class="return-btn" onclick="return confirmReturn(event)">Trả sách</button>

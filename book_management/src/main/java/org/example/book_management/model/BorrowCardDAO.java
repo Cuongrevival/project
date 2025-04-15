@@ -114,11 +114,11 @@ public class BorrowCardDAO {
                 borrowCard.setStudent(student);
 
                 Date borrowDate = rs.getDate("date_of_borrow");
-                borrowCard.setDateOfBorrow(borrowDate);
+                borrowCard.setDateOfBorrow(String.valueOf(borrowDate));
 
                 Date returnDate = rs.getDate("date_of_return");
                 if (returnDate != null) {
-                    borrowCard.setDateOfReturn(returnDate);
+                    borrowCard.setDateOfReturn(String.valueOf(returnDate));
                 }
 
                 borrowCardList.add(borrowCard);
