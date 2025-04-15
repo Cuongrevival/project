@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <html>
 <head>
@@ -8,7 +9,7 @@
     table {
       border-collapse: collapse;
       width: 100%;
-      border: 2px solid black;
+      border: 2px solid blue;
     }
 
     th, td {
@@ -47,24 +48,34 @@
 
   <c:forEach var="borrowCard" items="${borrowCardList}">
     <tr>
-      <td>MS-${String.format("%04d", borrowCard.id)}</td>
-      <td>${borrowCard.book.title}</td>
+      <td>${borrowCard.borrowBookId}</td>
+      <td>${borrowCard.book.bookName}</td>
       <td>${borrowCard.book.author}</td>
       <td>${borrowCard.student.name}</td>
       <td>${borrowCard.student.className}</td>
-      <td>${borrowCard.borrowDate}</td>
-      <td>${borrowCard.returnDate}</td>
+      <td><fmt:formatDate value="${borrowCard.dateOfBorrow}" pattern="dd-MM-yyyy"/></td>
       <td>
-        <a href="?action=return&borrowCardId=${borrowCard.id}">
-          <button type="button" class="return-btn" onclick="confirmReturn()">Trả sách</button>
+        <c:if test="${not empty borrowCard.dateOfReturn}">
+          <fmt:formatDate value="${borrowCard.dateOfReturn}" pattern="dd-MM-yyyy"/>
+        </c:if>
+        <c:if test="${empty borrowCard.dateOfReturn}">
+          Chưa trả
+        </c:if>
+      </td>
+      <td>
+        <a href="book?action=return&borrowBookId=${borrowCard.borrowBookId}">
+          <button type="button" class="return-btn" onclick="return confirmReturn(event)">Trả sách</button>
         </a>
       </td>
     </tr>
   </c:forEach>
 </table>
+
 <script>
-  function confirmReturn() {
-    return confirm("Chắc muốn trả sách?");
+  function confirmReturn(event) {
+    if (!confirm("Chắc chắn muốn trả sách?")) {
+      event.preventDefault();
+    }
   }
 </script>
 

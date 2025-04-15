@@ -1,30 +1,27 @@
 package org.example.book_management.model;
 
-
-
 public class Book {
-    private int id;
-    private String code;
-    private String title;
+    private String bookId;
+    private String bookName;
     private String author;
     private String description;
-    private int availableCopies;
+    private int amount;
 
 
-    public int getId() {
-        return id;
+    public String getBookId() {
+        return bookId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
     }
 
-    public String getTitle() {
-        return title;
+    public String getBookName() {
+        return bookName;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
     }
 
     public String getAuthor() {
@@ -43,19 +40,13 @@ public class Book {
         this.description = description;
     }
 
-    public int getAvailableCopies() {
-        return availableCopies;
+    public int getAmount() {
+        return amount;
     }
 
-    public void setAvailableCopies(int availableCopies) {
-        this.availableCopies = availableCopies;
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
-    public String getCode() {
-        return code;
-    }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
 }

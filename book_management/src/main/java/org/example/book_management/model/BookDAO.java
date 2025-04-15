@@ -5,51 +5,61 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookDAO {
-    private final Connection connection = DBConnection.connect();
-
+    private final Connection connection;
+    public BookDAO() {
+        connection = DBConnection.connect();
+    }
 
     public List<Book> getAllBooks() throws SQLException {
         List<Book> bookList = new ArrayList<>();
-        try (Statement stmt = connection.createStatement()) {
-            ResultSet rs = stmt.executeQuery("SELECT * FROM book");
+        String query = "SELECT * FROM book";
+        try (PreparedStatement stmt = connection.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery(query)) {
+
             while (rs.next()) {
                 Book book = new Book();
-                book.setId(rs.getInt("id"));
-                book.setCode(rs.getString("code"));
-                book.setTitle(rs.getString("title"));
+                book.setBookId(rs.getString("book_id"));
+                book.setBookName(rs.getString("book_name"));
                 book.setAuthor(rs.getString("author"));
                 book.setDescription(rs.getString("description"));
-                book.setAvailableCopies(rs.getInt("AvailableCopies"));
+                book.setAmount(rs.getInt("amount"));
+
                 bookList.add(book);
             }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
         }
         return bookList;
     }
 
-    public Book getBookById(int id) throws SQLException {
-        String query = "SELECT * FROM book WHERE id = ?";
+    public Book getBookById(String bookId) throws SQLException {
+        String query = "SELECT * FROM book WHERE book_id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, id);
+            stmt.setString(1, bookId);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 Book book = new Book();
-                book.setId(rs.getInt("id"));
-                book.setCode(rs.getString("code"));
-                book.setTitle(rs.getString("title"));
+                book.setBookId(rs.getString("book_id"));
+                book.setBookName(rs.getString("book_name"));
                 book.setAuthor(rs.getString("author"));
                 book.setDescription(rs.getString("description"));
-                book.setAvailableCopies(rs.getInt("AvailableCopies"));
+                book.setAmount(rs.getInt("amount"));
                 return book;
             }
         }
         return null;
     }
-    public void reduceCopies(int id) throws SQLException {
-        String query = "UPDATE book SET AvailableCopies = AvailableCopies - 1 WHERE id = ? AND AvailableCopies > 0";
+
+    public void reduceCopies(String bookId) throws SQLException {
+        String query = "UPDATE book SET amount = amount - 1 WHERE book_id = ? AND amount > 0";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, id);
+            stmt.setString(1, bookId);
+            stmt.executeUpdate();
+        }
+    }
+
+    public void increaseCopies(String bookId) throws SQLException {
+        String query = "UPDATE book SET amount = amount + 1 WHERE book_id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, bookId);
             stmt.executeUpdate();
         }
     }

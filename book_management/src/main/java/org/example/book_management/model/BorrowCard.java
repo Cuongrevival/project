@@ -1,27 +1,21 @@
 package org.example.book_management.model;
 
+import java.sql.Date;
+
 public class BorrowCard {
-    private int id;
-    private Student student;
+    private String borrowBookId;
     private Book book;
-    private String borrowDate;
-    private String returnDate;
+    private Student student;
+    private Date dateOfBorrow;
+    private Date dateOfReturn;
+    private boolean status;
 
-
-    public int getId() {
-        return id;
+    public String getBorrowBookId() {
+        return borrowBookId;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setBorrowBookId(String borrowBookId) {
+        this.borrowBookId = borrowBookId;
     }
 
     public Book getBook() {
@@ -32,19 +26,35 @@ public class BorrowCard {
         this.book = book;
     }
 
-    public String getBorrowDate() {
-        return borrowDate;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setBorrowDate(String borrowDate) {
-        this.borrowDate = borrowDate;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
-    public String getReturnDate() {
-        return returnDate;
+    public Date getDateOfBorrow() {
+        return dateOfBorrow;
     }
 
-    public void setReturnDate(String returnDate) {
-        this.returnDate = returnDate;
+    public void setDateOfBorrow(Date dateOfBorrow) {
+        this.dateOfBorrow = dateOfBorrow;
+    }
+
+    public Date getDateOfReturn() {
+        return dateOfReturn;
+    }
+
+    public void setDateOfReturn(Date dateOfReturn) {
+        this.dateOfReturn = dateOfReturn;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

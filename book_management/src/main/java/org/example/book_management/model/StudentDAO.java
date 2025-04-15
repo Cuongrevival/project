@@ -10,7 +10,7 @@ public class StudentDAO {
     private Connection connection = DBConnection.connect();
 
     public void addStudent(String name, String studentClass) throws SQLException {
-        String query = "INSERT INTO Student (Name, class) VALUES (?, ?)";
+        String query = "INSERT INTO Student (full_name, class) VALUES (?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, name);
             stmt.setString(2, studentClass);
@@ -19,7 +19,7 @@ public class StudentDAO {
     }
 
     public String getStudentById(int id) throws SQLException {
-        String query = "SELECT * FROM Student WHERE id = ?";
+        String query = "SELECT * FROM Student WHERE student_id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -37,8 +37,8 @@ public class StudentDAO {
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     Student student = new Student();
-                    student.setId(rs.getInt("id"));
-                    student.setName(rs.getString("name"));
+                    student.setId(rs.getInt("student_id"));
+                    student.setName(rs.getString("full_name"));
                     student.setClassName(rs.getString("class"));
                     studentList.add(student);
                 }
